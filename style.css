@@ -1,0 +1,131 @@
+:root {
+    --cell-size: 250px;
+    
+    --bg-color: #1b1d36;
+    --primary-color: #fca6d1;
+    --secondary-color: #99d6ea;
+    --x-color: #fed9eb; /* for hover */
+    --x-color-set: var(--primary-color); /* when set */
+    --o-color: #d7ecf4; /* for hover */
+    --o-color-set: var(--secondary-color); /* when set */
+    --l: 35px; /* X line-width */
+}
+
+body {
+    background-color: var(--bg-color);
+    margin: 0;
+}
+
+.text {
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+h1 {
+    font-size: 8em;
+    color: var(--primary-color);
+}
+
+h2 {
+    color: whitesmoke;
+}
+
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+.board {
+    padding-top: 3em;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(3, auto)
+}
+
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border: 3px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+    border-top: none;
+}
+
+.cell:nth-child(3n + 1) {
+    border-left: none;
+}
+
+.cell:nth-child(3n + 3) {
+    border-right: none;
+}
+
+.cell:last-child,
+.cell:nth-child(8),
+.cell:nth-child(7) {
+    border-bottom: none;
+}
+
+.cell.x,
+.cell.circle {
+    cursor: not-allowed;
+}
+
+/* for cross */
+.board.x .cell:not(.circle):not(.x).selected, .board.x .cell:not(.circle):not(.x):hover {
+    background: linear-gradient(to top right, transparent calc(50% - var(--l) / 2), var(--x-color) calc(50% - var(--l) / 2) calc(50% + var(--l) / 2), transparent calc(50% + var(--l) / 2)),
+    linear-gradient(to bottom right, transparent calc(50% - var(--l) / 2), var(--x-color) calc(50% - var(--l) / 2) calc(50% + var(--l) / 2), transparent calc(50% + var(--l) / 2));
+    background-size: 80% 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: white solid;
+    padding: 4px;
+}
+
+/* for cross (set) */
+.cell:not(.circle).x {
+    background: linear-gradient(to top right, transparent calc(50% - var(--l) / 2), var(--x-color-set) calc(50% - var(--l) / 2) calc(50% + var(--l) / 2), transparent calc(50% + var(--l) / 2)),
+    linear-gradient(to bottom right, transparent calc(50% - var(--l) / 2), var(--x-color-set) calc(50% - var(--l) / 2) calc(50% + var(--l) / 2), transparent calc(50% + var(--l) / 2));
+    background-size: 80% 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* for cross (set and selected) */
+.cell:not(.circle).x.selected {
+    background: linear-gradient(to top right, transparent calc(50% - var(--l) / 2), var(--x-color-set) calc(50% - var(--l) / 2) calc(50% + var(--l) / 2), transparent calc(50% + var(--l) / 2)),
+    linear-gradient(to bottom right, transparent calc(50% - var(--l) / 2), var(--x-color-set) calc(50% - var(--l) / 2) calc(50% + var(--l) / 2), transparent calc(50% + var(--l) / 2));
+    background-size: 80% 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: thick #ff6c6c solid;
+    padding: 4px;
+}
+
+/* for circle */
+.board.circle .cell:not(.circle):not(.x).selected, .board.circle .cell:not(.circle):not(.x):hover {	
+    background: radial-gradient(circle, #1b1d36 40%, var(--o-color) 40%, var(--o-color) 60%, transparent 60%);
+    border: white solid;
+    padding: 4px;
+}
+
+/* for circle (set) */
+.cell:not(.x).circle {
+    background: radial-gradient(circle, #1b1d36 40%, var(--o-color-set) 40%, var(--o-color-set) 60%, transparent 60%);
+}
+
+/* for circle (set and selected) */
+.cell:not(.x).circle.selected {
+    background: radial-gradient(circle, #1b1d36 40%, var(--o-color-set) 40%, var(--o-color-set) 60%, transparent 60%);
+    border: thick #ff6c6c solid;
+    padding: 4px;
+}
