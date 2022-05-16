@@ -8,7 +8,7 @@
     --x-color-set: var(--primary-color); /* when set */
     --o-color: #d7ecf4; /* for hover */
     --o-color-set: var(--secondary-color); /* when set */
-    --error-color: #ff6c6c
+    --error-color: #ff6c6c;
     --l: 35px; /* X line-width */
 }
 
