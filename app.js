@@ -88,17 +88,21 @@ function freezeBoard() {
 function handleClick(e) {
   // if we came from a pointer event, set to its target. else it came from keyboard event so use it directly
   cell = e instanceof PointerEvent ? e.target : e
-  const currentClass = circleTurn ? CIRCLE_CLASS : X_CLASS
-  placeMark(cell, currentClass)
-  if (checkWin(currentClass)) {
-    endGame(false)
-  } else if (isDraw()) {
-    endGame(true)
-  } else {
-    swapTurns()
-    unmarkedCells = unmarkedCells.filter(value => value != cell.id) // remove this index from list of remaining cells
-    setBoardHoverClass(true)
-    toggleActive(cell.id, Math.min(...unmarkedCells))
+
+  // if cell is not already marked, mark the cell and check victory
+  if(unmarkedCells.includes(+cell.id)) {
+    const currentClass = circleTurn ? CIRCLE_CLASS : X_CLASS
+    placeMark(cell, currentClass)
+    if (checkWin(currentClass)) {
+      endGame(false)
+    } else if (isDraw()) {
+      endGame(true)
+    } else {
+      swapTurns()
+      unmarkedCells = unmarkedCells.filter(value => value != cell.id) // remove this index from list of remaining cells
+      setBoardHoverClass(true)
+      toggleActive(cell.id, Math.min(...unmarkedCells))
+    }
   }
 }
 
